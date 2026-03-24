@@ -22,8 +22,11 @@ func main() {
 	c := pb.NewCalculatorServiceClient(conn)
 
 	doSum(c)
-	log.Println("-----")
+	log.Println("------------------------------------------------")
 
 	getPrimes(c, 1581578712)
+	log.Println("------------------------------------------------")
+
+	doAvg(c)
 
 }

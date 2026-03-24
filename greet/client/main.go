@@ -26,4 +26,7 @@ func main() {
 
 	doGreetManyTimes(c)
 	log.Printf("Finished streaming RPC...")
+
+	doLongGreet(c)
+	log.Printf("Finished client streaming RPC...")
 }

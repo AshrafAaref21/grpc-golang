@@ -18,4 +18,6 @@ service GreetService {
     rpc Greet(GreetRequest) returns (GreetResponse);
     // GreetManyTimes returns a stream of greeting message for the provided request.
     rpc GreetManyTimes(GreetRequest) returns (stream GreetResponse);
+    // LongGreet receives a stream of greeting requests and returns a single greeting response after processing all requests.
+    rpc LongGreet(stream GreetRequest) returns (GreetResponse);
 }

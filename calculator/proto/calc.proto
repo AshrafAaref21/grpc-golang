@@ -4,6 +4,7 @@ package calculator;
 
 option go_package = "github.com/AshrafAaref21/grpc-golang/calculator/proto";
 
+import "avg.proto";
 import "primes.proto";
 import "sum.proto";
 
@@ -13,4 +14,6 @@ service CalculatorService {
     rpc Sum(SumRequest) returns (SumResponse);
     // Primes returns a stream of prime numbers up to a given limit.
     rpc Primes(PrimesRequest) returns (stream PrimesResponse);
+    // Avg calculates the average of a stream of numbers and returns the result.
+    rpc Avg(stream AvgRequest) returns (AvgResponse);
 }
