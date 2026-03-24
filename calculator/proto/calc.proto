@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package calculator;
+
+option go_package = "github.com/AshrafAaref21/grpc-golang/calculator/proto";
+
+import "sum.proto";
+
+// CalculatorService exposes calculator-related RPCs.
+service CalculatorService {
+    // Sum returns the sum of two numbers.
+    rpc Sum(SumRequest) returns (SumResponse);
+}
