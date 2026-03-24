@@ -22,6 +22,7 @@ const (
 	GreetService_Greet_FullMethodName          = "/greet.GreetService/Greet"
 	GreetService_GreetManyTimes_FullMethodName = "/greet.GreetService/GreetManyTimes"
 	GreetService_LongGreet_FullMethodName      = "/greet.GreetService/LongGreet"
+	GreetService_GreetEverone_FullMethodName   = "/greet.GreetService/GreetEverone"
 )
 
 // GreetServiceClient is the client API for GreetService service.
@@ -36,6 +37,8 @@ type GreetServiceClient interface {
 	GreetManyTimes(ctx context.Context, in *GreetRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[GreetResponse], error)
 	// LongGreet receives a stream of greeting requests and returns a single greeting response after processing all requests.
 	LongGreet(ctx context.Context, opts ...grpc.CallOption) (grpc.ClientStreamingClient[GreetRequest, GreetResponse], error)
+	// GreetEverone receives a stream of greeting requests and  returns a stream of greeting message for the provided request.
+	GreetEverone(ctx context.Context, opts ...grpc.CallOption) (grpc.BidiStreamingClient[GreetRequest, GreetResponse], error)
 }
 
 type greetServiceClient struct {
@@ -88,6 +91,19 @@ func (c *greetServiceClient) LongGreet(ctx context.Context, opts ...grpc.CallOpt
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
 type GreetService_LongGreetClient = grpc.ClientStreamingClient[GreetRequest, GreetResponse]
 
+func (c *greetServiceClient) GreetEverone(ctx context.Context, opts ...grpc.CallOption) (grpc.BidiStreamingClient[GreetRequest, GreetResponse], error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	stream, err := c.cc.NewStream(ctx, &GreetService_ServiceDesc.Streams[2], GreetService_GreetEverone_FullMethodName, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &grpc.GenericClientStream[GreetRequest, GreetResponse]{ClientStream: stream}
+	return x, nil
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type GreetService_GreetEveroneClient = grpc.BidiStreamingClient[GreetRequest, GreetResponse]
+
 // GreetServiceServer is the server API for GreetService service.
 // All implementations must embed UnimplementedGreetServiceServer
 // for forward compatibility.
@@ -100,6 +116,8 @@ type GreetServiceServer interface {
 	GreetManyTimes(*GreetRequest, grpc.ServerStreamingServer[GreetResponse]) error
 	// LongGreet receives a stream of greeting requests and returns a single greeting response after processing all requests.
 	LongGreet(grpc.ClientStreamingServer[GreetRequest, GreetResponse]) error
+	// GreetEverone receives a stream of greeting requests and  returns a stream of greeting message for the provided request.
+	GreetEverone(grpc.BidiStreamingServer[GreetRequest, GreetResponse]) error
 	mustEmbedUnimplementedGreetServiceServer()
 }
 
@@ -118,6 +136,9 @@ func (UnimplementedGreetServiceServer) GreetManyTimes(*GreetRequest, grpc.Server
 }
 func (UnimplementedGreetServiceServer) LongGreet(grpc.ClientStreamingServer[GreetRequest, GreetResponse]) error {
 	return status.Error(codes.Unimplemented, "method LongGreet not implemented")
+}
+func (UnimplementedGreetServiceServer) GreetEverone(grpc.BidiStreamingServer[GreetRequest, GreetResponse]) error {
+	return status.Error(codes.Unimplemented, "method GreetEverone not implemented")
 }
 func (UnimplementedGreetServiceServer) mustEmbedUnimplementedGreetServiceServer() {}
 func (UnimplementedGreetServiceServer) testEmbeddedByValue()                      {}
@@ -176,6 +197,13 @@ func _GreetService_LongGreet_Handler(srv interface{}, stream grpc.ServerStream) 
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
 type GreetService_LongGreetServer = grpc.ClientStreamingServer[GreetRequest, GreetResponse]
 
+func _GreetService_GreetEverone_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(GreetServiceServer).GreetEverone(&grpc.GenericServerStream[GreetRequest, GreetResponse]{ServerStream: stream})
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type GreetService_GreetEveroneServer = grpc.BidiStreamingServer[GreetRequest, GreetResponse]
+
 // GreetService_ServiceDesc is the grpc.ServiceDesc for GreetService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -197,6 +225,12 @@ var GreetService_ServiceDesc = grpc.ServiceDesc{
 		{
 			StreamName:    "LongGreet",
 			Handler:       _GreetService_LongGreet_Handler,
+			ClientStreams: true,
+		},
+		{
+			StreamName:    "GreetEverone",
+			Handler:       _GreetService_GreetEverone_Handler,
+			ServerStreams: true,
 			ClientStreams: true,
 		},
 	},

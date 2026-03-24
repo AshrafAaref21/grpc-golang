@@ -29,4 +29,7 @@ func main() {
 
 	doLongGreet(c)
 	log.Printf("Finished client streaming RPC...")
+
+	doGreetEveryone(c)
+	log.Printf("Finished bidirectional streaming RPC...")
 }

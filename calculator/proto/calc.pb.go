@@ -26,29 +26,34 @@ const file_calc_proto_rawDesc = "" +
 	"\n" +
 	"\n" +
 	"calc.proto\x12\n" +
-	"calculator\x1a\tavg.proto\x1a\fprimes.proto\x1a\tsum.proto2\xc8\x01\n" +
+	"calculator\x1a\tavg.proto\x1a\tmax.proto\x1a\fprimes.proto\x1a\tsum.proto2\x84\x02\n" +
 	"\x11CalculatorService\x126\n" +
 	"\x03Sum\x12\x16.calculator.SumRequest\x1a\x17.calculator.SumResponse\x12A\n" +
 	"\x06Primes\x12\x19.calculator.PrimesRequest\x1a\x1a.calculator.PrimesResponse0\x01\x128\n" +
-	"\x03Avg\x12\x16.calculator.AvgRequest\x1a\x17.calculator.AvgResponse(\x01B7Z5github.com/AshrafAaref21/grpc-golang/calculator/protob\x06proto3"
+	"\x03Avg\x12\x16.calculator.AvgRequest\x1a\x17.calculator.AvgResponse(\x01\x12:\n" +
+	"\x03Max\x12\x16.calculator.MaxRequest\x1a\x17.calculator.MaxResponse(\x010\x01B7Z5github.com/AshrafAaref21/grpc-golang/calculator/protob\x06proto3"
 
 var file_calc_proto_goTypes = []any{
 	(*SumRequest)(nil),     // 0: calculator.SumRequest
 	(*PrimesRequest)(nil),  // 1: calculator.PrimesRequest
 	(*AvgRequest)(nil),     // 2: calculator.AvgRequest
-	(*SumResponse)(nil),    // 3: calculator.SumResponse
-	(*PrimesResponse)(nil), // 4: calculator.PrimesResponse
-	(*AvgResponse)(nil),    // 5: calculator.AvgResponse
+	(*MaxRequest)(nil),     // 3: calculator.MaxRequest
+	(*SumResponse)(nil),    // 4: calculator.SumResponse
+	(*PrimesResponse)(nil), // 5: calculator.PrimesResponse
+	(*AvgResponse)(nil),    // 6: calculator.AvgResponse
+	(*MaxResponse)(nil),    // 7: calculator.MaxResponse
 }
 var file_calc_proto_depIdxs = []int32{
 	0, // 0: calculator.CalculatorService.Sum:input_type -> calculator.SumRequest
 	1, // 1: calculator.CalculatorService.Primes:input_type -> calculator.PrimesRequest
 	2, // 2: calculator.CalculatorService.Avg:input_type -> calculator.AvgRequest
-	3, // 3: calculator.CalculatorService.Sum:output_type -> calculator.SumResponse
-	4, // 4: calculator.CalculatorService.Primes:output_type -> calculator.PrimesResponse
-	5, // 5: calculator.CalculatorService.Avg:output_type -> calculator.AvgResponse
-	3, // [3:6] is the sub-list for method output_type
-	0, // [0:3] is the sub-list for method input_type
+	3, // 3: calculator.CalculatorService.Max:input_type -> calculator.MaxRequest
+	4, // 4: calculator.CalculatorService.Sum:output_type -> calculator.SumResponse
+	5, // 5: calculator.CalculatorService.Primes:output_type -> calculator.PrimesResponse
+	6, // 6: calculator.CalculatorService.Avg:output_type -> calculator.AvgResponse
+	7, // 7: calculator.CalculatorService.Max:output_type -> calculator.MaxResponse
+	4, // [4:8] is the sub-list for method output_type
+	0, // [0:4] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -60,6 +65,7 @@ func file_calc_proto_init() {
 		return
 	}
 	file_avg_proto_init()
+	file_max_proto_init()
 	file_primes_proto_init()
 	file_sum_proto_init()
 	type x struct{}
