@@ -22,4 +22,8 @@ func main() {
 	c := pb.NewGreetServiceClient(conn)
 
 	doGreet(c)
+	log.Printf("Finished unary RPC...")
+
+	doGreetManyTimes(c)
+	log.Printf("Finished streaming RPC...")
 }

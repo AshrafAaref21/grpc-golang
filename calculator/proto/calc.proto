@@ -4,10 +4,13 @@ package calculator;
 
 option go_package = "github.com/AshrafAaref21/grpc-golang/calculator/proto";
 
+import "primes.proto";
 import "sum.proto";
 
 // CalculatorService exposes calculator-related RPCs.
 service CalculatorService {
     // Sum returns the sum of two numbers.
     rpc Sum(SumRequest) returns (SumResponse);
+    // Primes returns a stream of prime numbers up to a given limit.
+    rpc Primes(PrimesRequest) returns (stream PrimesResponse);
 }
