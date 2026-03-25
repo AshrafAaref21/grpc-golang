@@ -22,4 +22,6 @@ service GreetService {
     rpc LongGreet(stream GreetRequest) returns (GreetResponse);
     // GreetEverone receives a stream of greeting requests and  returns a stream of greeting message for the provided request.
     rpc GreetEverone(stream GreetRequest) returns (stream GreetResponse);
+    // GreetWithDeadline returns a greeting message for the provided request, but it respects the deadline sent by the client.
+    rpc GreetWithDeadline(GreetRequest) returns (GreetResponse);
 }

@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"time"
 
 	pb "github.com/AshrafAaref21/grpc-golang/greet/proto"
 	"google.golang.org/grpc"
@@ -32,4 +33,7 @@ func main() {
 
 	doGreetEveryone(c)
 	log.Printf("Finished bidirectional streaming RPC...")
+
+	doGreetWithDeadline(c, 5*time.Second) // should complete successfully
+	doGreetWithDeadline(c, 1*time.Second) // should timeout
 }
